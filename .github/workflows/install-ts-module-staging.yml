@@ -9,4 +9,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: install ts-model staging
-        run: npm install poc-semantic-release-ll@stagings
+        run: npm install poc-semantic-release-ll@staging
