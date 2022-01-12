@@ -1,11 +1,11 @@
-name: install ts-module
+name: update library on integration
 on:
   pull_request:
     branches:
       - integration
 jobs:
   install:
-    name: install ts-module
+    name: update library on integration
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -14,7 +14,7 @@ jobs:
       - name: Commit and create PR 🔀
         uses: peter-evans/create-pull-request@v3
         with:
-          title: 'build(deps): Upgrade NPM packages (automated)'
-          branch: 'build-deps-upgrade-npm-packages-automated'
+          title: 'Upgrade library to integration version'
+          branch: 'upgrade-library-integration-automated'
           commit-message: 'build(deps): upgrade NPM packages (automated)'
           base: 'integration'
