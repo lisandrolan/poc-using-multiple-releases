@@ -8,5 +8,13 @@ jobs:
     name: install ts-module
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
       - name: install ts-model staging
         run: npm install poc-semantic-release-ll@staging
+      - name: Commit and create PR 🔀
+        uses: peter-evans/create-pull-request@v3
+        with:
+          title: 'build(deps): Upgrade NPM packages (staging)'
+          branch: 'build-deps-upgrade-npm-packages-automated-staging'
+          commit-message: 'build(deps): upgrade NPM packages (staging)'
+          base: 'staging'
