@@ -1,12 +1,20 @@
-name: install ts-module
+name: update library on staging
 on:
-  push:
+  pull_request:
     branches:
       - staging
 jobs:
   install:
-    name: install ts-module
+    name: update library on staging
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
       - name: install ts-model staging
-        run: npm install poc-semantic-release-ll@stagings
+        run: npm install poc-semantic-release-ll@staging
+      - name: Commit and create PR 🔀
+        uses: peter-evans/create-pull-request@v3
+        with:
+          title: 'Upgrade library to staging version'
+          branch: 'upgrade-library-staging-automated'
+          commit-message: 'build(deps): upgrade NPM packages (automated)'
+          base: 'staging'
