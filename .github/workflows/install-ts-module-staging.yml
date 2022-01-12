@@ -1,6 +1,6 @@
 name: install ts-module
 on:
-  push:
+  pull_request:
     branches:
       
       - staging
