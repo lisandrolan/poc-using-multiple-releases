@@ -3,9 +3,8 @@ on:
   push:
     branches:
       - master
-      - beta
-      - alpha
       - staging
+      - integration
 jobs:
   release:
     name: Release
