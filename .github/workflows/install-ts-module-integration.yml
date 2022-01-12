@@ -1,0 +1,17 @@
+name: install ts-module
+on:
+  push:
+    branches:
+      
+      - integration
+jobs:
+  install:
+    name: install ts-module
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Install dependencies
+        run:  run: |
+          npm ci
+          npm install poc-semantic-release-ll@integration
+      
