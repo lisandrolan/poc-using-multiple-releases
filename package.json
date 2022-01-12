@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/lisandrolan/poc-using-multiple-releases/issues"
   },
-  "homepage": "https://github.com/lisandrolan/poc-using-multiple-releases#readme"
+  "homepage": "https://github.com/lisandrolan/poc-using-multiple-releases#readme",
+  "dependencies": {
+    "poc-semantic-release-ll": "^1.1.0-staging.1"
+  }
 }
