@@ -8,6 +8,6 @@ jobs:
     name: install ts-module
     runs-on: ubuntu-latest
     steps:
-     -  uses: actions/checkout@v2
+      - uses: actions/checkout@v2
       - name: install ts-model integration
         run: npm install poc-semantic-release-ll@integration
