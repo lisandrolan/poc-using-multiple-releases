@@ -9,8 +9,9 @@ jobs:
     name: install ts-module
     runs-on: ubuntu-latest
     steps:
+      - name: do clean install
+        run: npm ci
+      - name: install ts-model staging
+        run: npm install poc-semantic-release-ll@stagings
 
-      - name: Install dependencies
-      - run: npm ci
-      - run: npm install poc-semantic-release-ll@staging
       
