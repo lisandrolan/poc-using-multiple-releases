@@ -6,14 +6,12 @@ module.exports = {
         "next-major",
         {
             name: "integration",
-            prerelease: true,
-        },
-        {
-            name: "integration",
+            channel: "integration",
             prerelease: true,
         },
         {
             name: "staging",
+            channel: "staging",
             prerelease: true,
         },
     ],
