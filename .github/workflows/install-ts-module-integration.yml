@@ -44,7 +44,7 @@ jobs:
             git config user.name "Merge Broker Workflow"
             git add .
             git commit -m "generated"
-            git push
+            git push origin HEAD:integration
       # - name: git merge
       #   run: echo "##[set-output name=result;]$(git merge origin/$from --no-verify --no-edit 2>&1 | grep 'changed\|conflicts\|unmerged' || echo unknown output)"
       #   id: git_merge
