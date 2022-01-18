@@ -21,7 +21,7 @@ jobs:
       - name: show remotes
         run: git remote -v
       - name: fetch
-        run: git fetch --depth=50 origin $GITHUB_REF
+        run: git checkout HEAD^
       - name: install ts-model integration
         run: npm install poc-semantic-release-ll@integration
       # - name: find merge base
