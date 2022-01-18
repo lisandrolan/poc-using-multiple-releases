@@ -22,6 +22,8 @@ jobs:
         run: git remote -v
       - name: fetch
         run: git fetch --depth=50 origin integration
+      - name: pull
+        run: git pull
       - name: install ts-model integration
         run: npm install poc-semantic-release-ll@integration
       # - name: find merge base
