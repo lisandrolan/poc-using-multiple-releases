@@ -7,14 +7,63 @@ jobs:
   install:
     name: update library on integration
     runs-on: ubuntu-latest
+    env:
+            from: ${{ github.event.client_payload.from }}
+            to: ${{ github.event.client_payload.to }}
+            pr_title: ${{ github.event.client_payload.pr_title }}
     steps:
       - uses: actions/checkout@v2
+
+      - name: checkout
+        uses: actions/checkout@v2
+      - name: set git remote
+        run: git remote set-url origin "https://x-access-token:${{ secrets.PY_REPO_GITHUB_TOKEN }}@github.com/${GITHUB_REPOSITORY}.git"
+      - name: show remotes
+        run: git remote -v
+      - name: fetch
+        run: git fetch --depth=50 origin GITHUB_REF
       - name: install ts-model integration
         run: npm install poc-semantic-release-ll@integration
-      - name: Commit and create PR 🔀
-        uses: peter-evans/create-pull-request@v3
-        with:
-          title: 'Upgrade library to integration version'
-          branch: 'upgrade-library-integration-automated'
-          commit-message: 'build(deps): upgrade NPM packages (automated)'
-          base: 'integration'
+      # - name: find merge base
+      #   timeout-minutes: 1
+      #   run: >
+      #       while [ -z $( git merge-base origin/$from origin/$to ) ]; do
+      #         git fetch -q --deepen=50 origin GITHUB_REF;
+      #       done
+      # - run: git show origin/$from origin/$to
+      # - run: git merge-base origin/$from origin/$to
+      # - name: our branch
+      #   run: echo "brokerbranch=from-$from-to-$to-merge-broker" >> $GITHUB_ENV
+      # - run: >
+      #       git merge --quit;
+      #       git switch -c $brokerbranch origin/$to ||
+      #       (git switch $brokerbranch &&
+      #       git reset --hard origin/$to && git clean -df .)
+      - run: |
+            git config user.email "merge-broker@no-reply.papayaglobal.com"
+            git config user.name "Merge Broker Workflow"
+            git add .
+            git commit -m "generated"
+            git push
+      # - name: git merge
+      #   run: echo "##[set-output name=result;]$(git merge origin/$from --no-verify --no-edit 2>&1 | grep 'changed\|conflicts\|unmerged' || echo unknown output)"
+      #   id: git_merge
+      # - name: unknown merge output
+      #   if: contains(steps.git_merge.outputs.result, 'unknown')
+      #   run: echo "##[warning;]unknown output"
+      # - name: conflicts
+      #   if: contains(steps.git_merge.outputs.result, 'conflicts')
+      #   run: echo "##[warning;]merge conflicts found; cannot broker"
+      # - name: push branch
+      #   if: contains(steps.git_merge.outputs.result, 'changed')
+      #   run: git push origin -u $brokerbranch
+      # - name: make PR
+      #   if: contains(steps.git_merge.outputs.result, 'changed')
+      #   # https://curl2httpie.online/
+      #   run: >
+      #       curl
+      #       --header "Authorization: token ${{ secrets.PY_REPO_GITHUB_TOKEN }}"
+      #       --header "Content-Type: application/json"
+      #       --data "{\"base\":\"$to\",\"body\":\"this PR was created by [the merge-broker worklow](https://github.com/$GITHUB_REPOSITORY/tree/master/${{ github.workflow }}), specifically [this run](https://github.com/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID)\",\"draft\":\"true\",\"head\":\"$brokerbranch\",\"title\":\"$pr_title\"}"
+      #       "https://api.github.com/repos/${GITHUB_REPOSITORY}/pulls"
+      
