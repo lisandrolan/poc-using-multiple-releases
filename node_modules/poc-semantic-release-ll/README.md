@@ -7,3 +7,4 @@ new story added
 
 another new story
 
+new-story-4
