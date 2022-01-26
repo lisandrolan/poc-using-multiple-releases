@@ -1,8 +1,6 @@
 name: update library on staging
 on:
   push:
-    branches:
-      - staging
 jobs:
   install:
     name: update library on staging
@@ -26,9 +24,6 @@ jobs:
           echo git diff --name-only origin/staging origin/${GITHUB_HEAD_REF}
           echo ${{ steps.old_lib.outputs.lib_name }}
           git fetch origin staging
-          git diff --name-only origin/staging origin/${GITHUB_HEAD_REF} > mydiff
-          echo "mydiff = "
-          cat mydiff
       - name: extract new_lib
         id: new_lib
         run: |
