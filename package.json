@@ -1,22 +1,22 @@
 {
-  "name": "poc-using-multiple-releases",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/lisandrolan/poc-using-multiple-releases.git"
-  },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/lisandrolan/poc-using-multiple-releases/issues"
-  },
-  "homepage": "https://github.com/lisandrolan/poc-using-multiple-releases#readme",
-  "dependencies": {
-    "poc-semantic-release-ll": "^1.1.0-integration.6"
-  }
+    "name": "poc-using-multiple-releases",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/lisandrolan/poc-using-multiple-releases.git"
+    },
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/lisandrolan/poc-using-multiple-releases/issues"
+    },
+    "homepage": "https://github.com/lisandrolan/poc-using-multiple-releases#readme",
+    "dependencies": {
+        "poc-semantic-release-ll": "^1.1.0-integration.6"
+    }
 }
