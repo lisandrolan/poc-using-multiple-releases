@@ -30,7 +30,7 @@ jobs:
         run: git fetch --depth=50 origin integration
       - name: install library
         if: | 
-            steps.extract_branch.outputs.branch == 'integration && 
+            steps.extract_branch.outputs.branch == 'integration' && 
             contains(steps.new_lib.outputs.lib_name, 'poc-semantic-release-ll') && 
             contains(steps.new_lib.outputs.lib_name, 'integration') && 
             !contains(steps.old_lib.outputs.lib_name, 'integration')
