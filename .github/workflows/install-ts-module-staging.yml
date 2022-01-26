@@ -16,6 +16,8 @@ jobs:
         run: git remote -v
       - name: fetch
         run: git fetch --depth=50 origin staging
+      - name: git checkout
+        run: git checkout staging
       - name: extract old_lib
         id: old_lib
         run: |
