@@ -7,7 +7,7 @@ jobs:
   install:
     name: update library on master
     runs-on: ubuntu-latest
-       steps:
+    steps:
       - name: checkout
         uses: actions/checkout@v2
       - name: set git remote
