@@ -26,7 +26,7 @@ jobs:
           echo git diff --name-only origin/staging origin/${GITHUB_HEAD_REF}
           echo ${{ steps.old_lib.outputs.lib_name }}
           git fetch origin staging
-          git git diff --name-only origin/staging origin/${GITHUB_HEAD_REF} > mydiff
+          git diff --name-only origin/staging origin/${GITHUB_HEAD_REF} > mydiff
           echo "mydiff = "
           cat mydiff
       - name: extract new_lib
