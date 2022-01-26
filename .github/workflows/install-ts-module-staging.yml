@@ -17,16 +17,16 @@ jobs:
         run: git remote -v
       - name: fetch
         run: git fetch --depth=50 origin staging
-      - name: git checkout
-        run: git checkout staging
+#       - name: git checkout
+#         run: git checkout staging
       - name: extract old_lib
         id: old_lib
         run: |
           echo "##[set-output name=lib_name;]$(git diff package.json | grep  -e 'poc-semantic-release-ll' | grep '^[-][^-]')"    
-          echo git diff 
+          echo git diff --name-only origin/staging origin/${GITHUB_HEAD_REF}
           echo ${{ steps.old_lib.outputs.lib_name }}
           git fetch origin staging
-          git diff origin/staging..HEAD > mydiff
+          git git diff --name-only origin/staging origin/${GITHUB_HEAD_REF} > mydiff
           echo "mydiff = "
           cat mydiff
       - name: extract new_lib
