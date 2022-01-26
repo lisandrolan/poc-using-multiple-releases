@@ -8,6 +8,7 @@ jobs:
     name: update library on staging
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
       - name: checkout
         uses: actions/checkout@v2
       - name: set git remote
