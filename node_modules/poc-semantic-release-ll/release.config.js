@@ -10,6 +10,10 @@ module.exports = {
             prerelease: true,
         },
         {
+            name: "integration",
+            prerelease: true,
+        },
+        {
             name: "staging",
             channel: "staging",
             prerelease: true,
