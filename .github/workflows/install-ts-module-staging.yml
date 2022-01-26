@@ -30,7 +30,7 @@ jobs:
         run: git fetch --depth=50 origin staging
       - name: install library
         if: | 
-            steps.extract_branch.outputs.branch == 'staging && 
+            steps.extract_branch.outputs.branch == 'staging' && 
             contains(steps.new_lib.outputs.lib_name, 'poc-semantic-release-ll') && 
             contains(steps.new_lib.outputs.lib_name, 'staging') && 
             !contains(steps.old_lib.outputs.lib_name, 'staging')
