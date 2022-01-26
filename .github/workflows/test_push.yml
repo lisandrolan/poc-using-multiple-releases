@@ -1,44 +1,44 @@
-name: update library on new-story-4
-on:
-  push:
-jobs:
-  install:
-    name: update library on integration
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: checkout
-        uses: actions/checkout@v2
-      - name: set git remote
-        run: git remote set-url origin "https://x-access-token:${{ secrets.PY_REPO_GITHUB_TOKEN }}@github.com/${GITHUB_REPOSITORY}.git"
-      - name: extract old_lib
-        id: old_lib
-        run: |
-          echo "##[set-output name=lib_name;]$(git diff package.json | grep  -e 'poc-semantic-release-ll' | grep '^[-][^-]')"    
-      - name: extract new_lib
-        id: new_lib
-        run: |
-          echo "##[set-output name=lib_name;]$(git diff package.json | grep  -e 'poc-semantic-release-ll' | grep '^[+][^+]')"    
-      - name: Extract branch name on push
-        if: github.event_name != 'pull_request'
-        shell: bash
-        run: echo "::set-output name=branch::$(echo ${GITHUB_REF#refs/heads/})"
-        id: extract_branch
+# name: update library on new-story-4
+# on:
+#   push:
+# jobs:
+#   install:
+#     name: update library on integration
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@v2
+#       - name: checkout
+#         uses: actions/checkout@v2
+#       - name: set git remote
+#         run: git remote set-url origin "https://x-access-token:${{ secrets.PY_REPO_GITHUB_TOKEN }}@github.com/${GITHUB_REPOSITORY}.git"
+#       - name: extract old_lib
+#         id: old_lib
+#         run: |
+#           echo "##[set-output name=lib_name;]$(git diff package.json | grep  -e 'poc-semantic-release-ll' | grep '^[-][^-]')"    
+#       - name: extract new_lib
+#         id: new_lib
+#         run: |
+#           echo "##[set-output name=lib_name;]$(git diff package.json | grep  -e 'poc-semantic-release-ll' | grep '^[+][^+]')"    
+#       - name: Extract branch name on push
+#         if: github.event_name != 'pull_request'
+#         shell: bash
+#         run: echo "::set-output name=branch::$(echo ${GITHUB_REF#refs/heads/})"
+#         id: extract_branch
 
-      # - name: Extract branch name on pull request
-      #   if: github.event_name == 'pull_request'
-      #   run: echo "::set-output name=branch::$(echo ${GITHUB_HEAD_REF})"
-      #    id: extract_branch
-      - name: Install library
-        if: | 
-             steps.extract_branch.outputs.branch == 'new-story-4' && 
-             contains(steps.new_lib.outputs.lib_name, 'poc-semantic-release-ll') && 
-             contains(steps.new_lib.outputs.lib_name, 'staging') && 
-             !contains(steps.old_lib.outputs.lib_name, 'staging')
-        run: |
-          echo "mydiff = ";
-          echo ${{ steps.extract_branch.outputs.branch }}
-          echo ${{ steps.old_lib.outputs.lib_name }}
-              echo ${{ steps.new_lib.outputs.lib_name }}
+#       # - name: Extract branch name on pull request
+#       #   if: github.event_name == 'pull_request'
+#       #   run: echo "::set-output name=branch::$(echo ${GITHUB_HEAD_REF})"
+#       #    id: extract_branch
+#       - name: Install library
+#         if: | 
+#              steps.extract_branch.outputs.branch == 'new-story-4' && 
+#              contains(steps.new_lib.outputs.lib_name, 'poc-semantic-release-ll') && 
+#              contains(steps.new_lib.outputs.lib_name, 'staging') && 
+#              !contains(steps.old_lib.outputs.lib_name, 'staging')
+#         run: |
+#           echo "mydiff = ";
+#           echo ${{ steps.extract_branch.outputs.branch }}
+#           echo ${{ steps.old_lib.outputs.lib_name }}
+#               echo ${{ steps.new_lib.outputs.lib_name }}
     
             
