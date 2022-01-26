@@ -1,6 +1,6 @@
 name: update library on staging
 on:
-  pull_request:
+  push:
     branches:
       - staging
 jobs:
@@ -26,7 +26,7 @@ jobs:
           echo git diff 
           echo ${{ steps.old_lib.outputs.lib_name }}
           git fetch origin staging
-          git diff  > mydiff
+          git diff origin/staging..HEAD > mydiff
           echo "mydiff = "
           cat mydiff
       - name: extract new_lib
