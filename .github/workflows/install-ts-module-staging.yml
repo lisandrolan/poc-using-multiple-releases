@@ -1,6 +1,6 @@
 name: update library on staging
 on:
-  pull_request:
+  push:
     branches:
       - staging
 jobs:
@@ -27,12 +27,10 @@ jobs:
           echo "##[set-output name=lib_name;]$(git diff package.json | grep  -e 'poc-semantic-release-ll' | grep '^[+][^+]')"    
           echo ${{ steps.new_lib.outputs.lib_name }}
       - name: Extract branch name on pull request
-        if: github.event_name == 'pull_request'
         run: |
-          echo "::set-output name=branch::$(echo ${GITHUB_HEAD_REF})"
+          echo "::set-output name=branch::$(echo ${GITHUB_REF#refs/heads/})"
           echo ${{ steps.extract_branch.outputs.branch }}
         id: extract_branch
-        
       - name: install library
         if: | 
             steps.extract_branch.outputs.branch == 'staging' && 
