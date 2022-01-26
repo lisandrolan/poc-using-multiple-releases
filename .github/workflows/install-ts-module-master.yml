@@ -1,11 +1,11 @@
-name: update library on staging
+name: update library on master
 on:
   pull_request:
     branches:
-      - staging
+      - master
 jobs:
   install:
-    name: update library on staging
+    name: update library on master
     runs-on: ubuntu-latest
     steps:
       - name: checkout
@@ -27,18 +27,18 @@ jobs:
         run: echo "::set-output name=branch::$(echo ${GITHUB_HEAD_REF})"
         id: extract_branch
       - name: fetch
-        run: git fetch --depth=50 origin staging
+        run: git fetch --depth=50 origin master
       - name: install library
         if: | 
-            steps.extract_branch.outputs.branch == 'staging' && 
+            steps.extract_branch.outputs.branch == 'master' && 
             contains(steps.new_lib.outputs.lib_name, 'poc-semantic-release-ll') && 
-            contains(steps.new_lib.outputs.lib_name, 'staging') && 
-            !contains(steps.old_lib.outputs.lib_name, 'staging')
+            !contains(steps.new_lib.outputs.lib_name, 'staging') && 
+            !contains(steps.old_lib.outputs.lib_name, 'integration')
         run: |
-            npm install poc-semantic-release-ll@staging
+            npm install poc-semantic-release-ll
             git config user.email "merge-broker@no-reply.papayaglobal.com"
             git config user.name "Merge Broker Workflow"
             git add .
             git commit -m "generated"
-            git push origin HEAD:staging
+            git push origin HEAD:master
 
