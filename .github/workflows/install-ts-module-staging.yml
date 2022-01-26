@@ -1,6 +1,6 @@
 name: update library on staging
 on:
-  push:
+  pull_request:
     branches:
       - staging
 jobs:
