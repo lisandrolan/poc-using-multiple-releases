@@ -42,6 +42,7 @@ jobs:
             !contains(steps.new_lib.outputs.lib_name, 'staging') 
 
         run: |
+            git checkout HEAD^
             git pull 
             npm install poc-semantic-release-ll@staging
             git config user.email "merge-broker@no-reply.papayaglobal.com"
