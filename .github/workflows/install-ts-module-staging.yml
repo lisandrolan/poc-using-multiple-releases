@@ -13,8 +13,8 @@ jobs:
         run: git remote set-url origin "https://x-access-token:${{ secrets.PY_REPO_GITHUB_TOKEN }}@github.com/${GITHUB_REPOSITORY}.git"
       - name: show remotes
         run: git remote -v
-      - name: fetch
-        run: git fetch origin staging
+      # - name: fetch
+      #   run: git fetch origin staging
 #       - name: git checkout
 #         run: git checkout staging
       - name: extract old_lib
@@ -23,7 +23,7 @@ jobs:
           echo "##[set-output name=lib_name;]$(git diff origin/staging..HEAD package.json | grep  -e 'poc-semantic-release-ll' | grep '^[-][^-]')"    
           echo git diff --name-only origin/staging..HEAD
           echo ${{ steps.old_lib.outputs.lib_name }}
-          git fetch origin staging
+  
       - name: extract new_lib
         id: new_lib
         run: |
