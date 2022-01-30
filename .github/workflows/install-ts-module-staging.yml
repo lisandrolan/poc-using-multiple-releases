@@ -1,8 +1,7 @@
 name: update library on staging
 on:
   push:
-    branches:
-      - staging
+    branches: ['staging']
 jobs:
   install:
     name: update library on staging
