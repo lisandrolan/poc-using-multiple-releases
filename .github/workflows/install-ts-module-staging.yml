@@ -17,36 +17,30 @@ jobs:
       #   run: git fetch origin staging
 #       - name: git checkout
 #         run: git checkout staging
-      - name: extract old_lib
-        id: old_lib
-        run: |
-          git fetch origin staging
-          git diff origin/staging..HEAD package.json | grep  -e 'poc-semantic-release-ll' | grep '^[-][^-]' > mydiff
-          echo "mydiff = "
-          cat mydiff
-          echo "##[set-output name=lib_name;]$(git diff origin/staging..HEAD package.json | grep  -e 'poc-semantic-release-ll' | grep '^[-][^-]')"    
-          echo git diff --name-only origin/staging..HEAD
-          echo ${{ steps.old_lib.outputs.lib_name }}
+      # - name: extract old_lib
+      #   id: old_lib
+      #   run: |
+      #     echo "##[set-output name=lib_name;]$(git diff origin/staging..HEAD package.json | grep  -e 'poc-semantic-release-ll' | grep '^[-][^-]')"    
+      #     echo git diff --name-only origin/staging..HEAD
+      #     # echo ${{ steps.old_lib.outputs.lib_name }}
   
       - name: extract new_lib
         id: new_lib
         run: |
-          echo ${{ steps.old_lib.outputs.lib_name }}
           echo "##[set-output name=lib_name;]$(git diff origin/staging..HEAD package.json | grep  -e 'poc-semantic-release-ll' | grep '^[+][^+]')"    
-          echo ${{ steps.new_lib.outputs.lib_name }}
-      - name: Extract branch name on pull request
-        if: github.event_name == 'pull_request'
-        run: |
-          echo "::set-output name=branch::$(echo ${GITHUB_HEAD_REF})"
-          echo ${{ steps.extract_branch.outputs.branch }}
-        id: extract_branch
+          # echo ${{ steps.new_lib.outputs.lib_name }}
+      # - name: Extract branch name on pull request
+      #   if: github.event_name == 'pull_request'
+        # run: |
+        #   echo "::set-output name=branch::$(echo ${GITHUB_HEAD_REF})"
+        #   echo ${{ steps.extract_branch.outputs.branch }}
+        # id: extract_branch
         
       - name: install library
         if: | 
-            steps.extract_branch.outputs.branch == 'staging' && 
             contains(steps.new_lib.outputs.lib_name, 'poc-semantic-release-ll') && 
-            contains(steps.new_lib.outputs.lib_name, 'staging') && 
-            !contains(steps.old_lib.outputs.lib_name, 'staging')
+            !contains(steps.new_lib.outputs.lib_name, 'staging') 
+
         run: |
             npm install poc-semantic-release-ll@staging
             git config user.email "merge-broker@no-reply.papayaglobal.com"
@@ -54,11 +48,3 @@ jobs:
             git add .
             git commit -m "generated"
             git push origin HEAD:staging
-
-      - name: print-diff
-        shell: bash
-        run: |
-          git fetch origin staging
-          git diff origin/staging..HEAD package.json | grep  -e 'poc-semantic-release-ll' | grep '^[-][^-]' > mydiff
-          echo "mydiff = "
-          cat mydiff
