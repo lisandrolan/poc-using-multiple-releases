@@ -54,6 +54,6 @@ jobs:
         shell: bash
         run: |
           git fetch origin staging
-          git diff origin/staging..HEAD > mydiff
+          git git diff origin/staging..HEAD package.json | grep  -e 'poc-semantic-release-ll' | grep '^[-][^-]') > mydiff
           echo "mydiff = "
           cat mydiff
