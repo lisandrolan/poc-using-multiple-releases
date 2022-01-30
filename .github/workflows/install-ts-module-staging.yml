@@ -8,7 +8,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
-          fetch-depth: ''
+          fetch-depth: 2
       - name: set git remote
         run: git remote set-url origin "https://x-access-token:${{ secrets.PY_REPO_GITHUB_TOKEN }}@github.com/${GITHUB_REPOSITORY}.git"
       - name: show remotes
@@ -49,3 +49,11 @@ jobs:
             git add .
             git commit -m "generated"
             git push origin HEAD:staging
+
+      - name: print-diff
+        shell: bash
+        run: |
+          git fetch origin main
+          git diff origin/main..HEAD > mydiff
+          echo "mydiff = "
+          cat mydiff
