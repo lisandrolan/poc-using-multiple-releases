@@ -1,44 +1,54 @@
 name: update library on integration
 on:
-  pull_request:
-    branches:
-      - integration
+  push:
+    branches: ['integration']
 jobs:
   install:
     name: update library on integration
     runs-on: ubuntu-latest
     steps:
-      - name: checkout
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
       - name: set git remote
         run: git remote set-url origin "https://x-access-token:${{ secrets.PY_REPO_GITHUB_TOKEN }}@github.com/${GITHUB_REPOSITORY}.git"
       - name: show remotes
         run: git remote -v
-      - name: extract old_lib
-        id: old_lib
-        run: |
-          echo "##[set-output name=lib_name;]$(git diff package.json | grep  -e 'poc-semantic-release-ll' | grep '^[-][^-]')"    
+      - name: fetch
+        run: git fetch origin integration
+      - name: git checkout
+        run: git checkout integration
+      # - name: extract old_lib
+      #   id: old_lib
+      #   run: |
+      #     echo "##[set-output name=lib_name;]$(git diff origin/integration..HEAD package.json | grep  -e 'poc-semantic-release-ll' | grep '^[-][^-]')"    
+      #     echo git diff --name-only origin/integration..HEAD
+      #     # echo ${{ steps.old_lib.outputs.lib_name }}
+  
       - name: extract new_lib
         id: new_lib
         run: |
-          echo "##[set-output name=lib_name;]$(git diff package.json | grep  -e 'poc-semantic-release-ll' | grep '^[+][^+]')"    
-      - name: Extract branch name on pull request
-        if: github.event_name == 'pull_request'
-        run: echo "::set-output name=branch::$(echo ${GITHUB_HEAD_REF})"
-        id: extract_branch
-      - name: fetch
-        run: git fetch --depth=50 origin integration
+          echo "##[set-output name=lib_name;]$(git diff origin/integration~1 origin/integration package.json | grep  -e 'poc-semantic-release-ll' | grep '^[+][^+]')"    
+          # echo ${{ steps.new_lib.outputs.lib_name }}
+      - name: lib
+        run: echo ${{ steps.new_lib.outputs.lib_name }}
+      # - name: Extract branch name on pull request
+      #   if: github.event_name == 'pull_request'
+        # run: |
+        #   echo "::set-output name=branch::$(echo ${GITHUB_HEAD_REF})"
+        #   echo ${{ steps.extract_branch.outputs.branch }}
+        # id: extract_branch
+        
       - name: install library
         if: | 
-            steps.extract_branch.outputs.branch == 'integration' && 
             contains(steps.new_lib.outputs.lib_name, 'poc-semantic-release-ll') && 
-            contains(steps.new_lib.outputs.lib_name, 'integration') && 
-            !contains(steps.old_lib.outputs.lib_name, 'integration')
+            !contains(steps.new_lib.outputs.lib_name, 'integration') 
+
         run: |
+
             npm install poc-semantic-release-ll@integration
             git config user.email "merge-broker@no-reply.papayaglobal.com"
             git config user.name "Merge Broker Workflow"
             git add .
             git commit -m "generated"
             git push origin HEAD:integration
-
