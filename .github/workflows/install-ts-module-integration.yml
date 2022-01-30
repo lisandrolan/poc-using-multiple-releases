@@ -28,7 +28,7 @@ jobs:
       - name: extract new_lib
         id: new_lib
         run: |
-          echo "##[set-output name=lib_name;]$(git diff origin/integration origin/integration~1 package.json | grep  -e 'poc-semantic-release-ll' | grep '^[+][^+]')"    
+          echo "##[set-output name=lib_name;]$(git diff origin/integration~1 origin/integration package.json | grep  -e 'poc-semantic-release-ll' | grep '^[+][^+]')"    
           # echo ${{ steps.new_lib.outputs.lib_name }}
       - name: lib
         run: echo ${{ steps.new_lib.outputs.lib_name }}
