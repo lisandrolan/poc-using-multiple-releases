@@ -17,6 +17,6 @@
     },
     "homepage": "https://github.com/lisandrolan/poc-using-multiple-releases#readme",
     "dependencies": {
-        "poc-semantic-release-ll": "^1.1.0-integration.7"
+        "poc-semantic-release-ll": "^1.1.0-integration.6"
     }
 }

@@ -14,10 +14,10 @@ jobs:
         run: git remote set-url origin "https://x-access-token:${{ secrets.PY_REPO_GITHUB_TOKEN }}@github.com/${GITHUB_REPOSITORY}.git"
       - name: show remotes
         run: git remote -v
-      # - name: fetch
-      #   run: git fetch origin staging
-#       - name: git checkout
-#         run: git checkout staging
+      - name: fetch
+        run: git fetch origin staging
+      - name: git checkout
+        run: git checkout staging
       # - name: extract old_lib
       #   id: old_lib
       #   run: |
@@ -45,7 +45,7 @@ jobs:
             !contains(steps.new_lib.outputs.lib_name, 'staging') 
 
         run: |
-            git checkout HEAD^
+
             npm install poc-semantic-release-ll@staging
             git config user.email "merge-broker@no-reply.papayaglobal.com"
             git config user.name "Merge Broker Workflow"
