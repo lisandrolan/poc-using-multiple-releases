@@ -11,6 +11,7 @@ jobs:
         with:
           persist-credentials: false
           fetch-depth: 0
+          token: ${{ secrets.TOKEN }}
       - name: set git remote
         run: git remote set-url origin "https://x-access-token:${{ secrets.PY_REPO_GITHUB_TOKEN }}@github.com/${GITHUB_REPOSITORY}.git"
       - name: show remotes
