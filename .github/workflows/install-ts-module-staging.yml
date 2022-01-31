@@ -33,8 +33,8 @@ jobs:
             !contains(steps.new_lib.outputs.lib_name, 'staging') 
         run: |
             npm install poc-semantic-release-ll@staging
-            git config user.email "lisandrolan@gmail.com"
-            git config user.name "Merge Broker Workflow"
+            git config --global user.name 'Your Name'
+            git config --global user.email 'lisandrolan@users.noreply.github.com'
             git add .
             git commit -m "generated"
             git push origin HEAD:staging
