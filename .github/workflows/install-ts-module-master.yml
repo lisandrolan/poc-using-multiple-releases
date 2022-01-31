@@ -43,7 +43,8 @@ jobs:
       - name: install library
         if: | 
             contains(steps.new_lib.outputs.lib_name, 'poc-semantic-release-ll') && 
-            contains(steps.new_lib.outputs.lib_name, 'staging') 
+            ( contains(steps.new_lib.outputs.lib_name, 'staging') ||
+              contains(steps.new_lib.outputs.lib_name, 'integration') ) 
 
         run: |
 
