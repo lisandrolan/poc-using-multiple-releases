@@ -21,6 +21,7 @@ jobs:
       - name: extract new_lib
         id: new_lib
         run: |
+
           echo "##[set-output name=lib_name;]$(git diff origin/staging~1 origin/staging package.json | grep  -e 'poc-semantic-release-ll' | grep '^[+][^+]')"    
           # echo ${{ steps.new_lib.outputs.lib_name }}
       - name: lib
