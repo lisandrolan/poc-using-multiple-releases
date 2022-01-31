@@ -36,6 +36,6 @@ jobs:
             npm install poc-semantic-release-ll@staging
             git add .
             git commit -m "generated"
-            git push origin HEAD:staging
+            git push 
         env:
           GITHUB_TOKEN: ${{secrets.TOKEN}}
