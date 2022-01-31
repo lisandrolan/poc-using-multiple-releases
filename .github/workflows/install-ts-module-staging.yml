@@ -35,6 +35,8 @@ jobs:
         run: |
             npm install poc-semantic-release-ll@staging
             git add .
+            git config --global user.email "lisandrolan@gmail.com"
+            git config --global user.name "Lisandro Langenauer"
             git commit -m "generated"
             git push 
         env:
