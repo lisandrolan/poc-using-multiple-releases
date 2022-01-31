@@ -9,7 +9,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
-          fetch-depth: 0
+          token: ${{ secrets.KEY }}
       - name: set git remote
         run: git remote set-url origin "https://x-access-token:${{ secrets.PY_REPO_GITHUB_TOKEN }}@github.com/${GITHUB_REPOSITORY}.git"
       - name: show remotes
