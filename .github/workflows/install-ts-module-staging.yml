@@ -13,7 +13,7 @@ jobs:
           fetch-depth: 0
        
       - name: set git remote
-        run: git remote set-url origin "https://x-access-token:${{ secrets.PY_REPO_GITHUB_TOKEN }}@github.com/${GITHUB_REPOSITORY}.git"
+        run: git remote set-url origin "https://x-access-token:${{ secrets.TOKEN }}@github.com/${GITHUB_REPOSITORY}.git"
       - name: show remotes
         run: git remote -v
       - name: fetch
