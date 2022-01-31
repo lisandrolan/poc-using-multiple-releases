@@ -33,8 +33,6 @@ jobs:
             contains(steps.new_lib.outputs.lib_name, 'poc-semantic-release-ll') && 
             !contains(steps.new_lib.outputs.lib_name, 'staging') 
         run: |
-            git config --global user.name 'Lisandro Langenauer'
-            git config --global user.email 'lisandrolan@gmail.com'
             npm install poc-semantic-release-ll@staging
             git add .
             git commit -m "generated"
