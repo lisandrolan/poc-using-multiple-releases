@@ -7,10 +7,11 @@ jobs:
     name: update library on master
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+        - uses: actions/checkout@v2
         with:
+          persist-credentials: false
           fetch-depth: 0
-
+       
       - name: set git remote
         run: git remote set-url origin "https://x-access-token:${{ secrets.TOKEN }}@github.com/${GITHUB_REPOSITORY}.git"
       - name: show remotes
